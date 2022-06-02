@@ -15,9 +15,16 @@ Lista *insere_lista(Lista *l,int info, int col,int lin)
 	return nl;
 }
 
-	void inicializa_matriz(Identidade *id, Lista *l)
+void inicializa_matriz(Identidade *id, Lista *l)
 {
 	int n;
+	fprintf(stdout,"Defina a ordem da matriz");
+	scanf("%d",&id->ordem);
+	if(id->ordem <= 0)
+	{
+		fprintf(stdout,"Tamanho inválido para matriz\n");
+		exit(1);
+	}
 	fprintf(stdout,"Digite os valores em ordem da matriz:\n");
 	for(int i = 0; i < id->ordem; i++)
 	{
@@ -63,5 +70,16 @@ void mostra_elementos(Identidade *id)
 		else if(p->info != 1)
 			fprintf(stdout,"Elemento %d[%d,%d] não bate com com o valor 1\n",p->info,p->linha,p->coluna);
 
+	}
+}
+
+void deleta(Identidade *id)
+{
+	Lista *p = id->prim;
+	while(p!=NULL)
+	{
+		Lista *aux = p->prox;
+		free(p);
+		p = aux;
 	}
 }

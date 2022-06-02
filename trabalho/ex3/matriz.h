@@ -24,4 +24,4 @@ Lista* insere_lista(Lista *l, int info,int col, int lin);
 void inicializa_matriz(Identidade *id, Lista *l);
 void imprime_matriz(Identidade *id);
 void mostra_elementos(Identidade *id);
-
+void deleta(Identidade *id);

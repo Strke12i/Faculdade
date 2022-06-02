@@ -17,10 +17,19 @@ Lista *insere_lista(Lista *l, int info, int col,int lin)
 }
 
 
-Lista *inicializa_matriz(Lista *l,Esparca *e)
+void *inicializa_matriz(Lista *l,Esparca *e)
 {
 	int n;
+	fprintf(stdout,"Digite o tamanho da matriz(linhas colunas):");
+	scanf("%d %d",&e->linhas,&e->colunas);
+	if(e->linhas <= 0 || e->colunas <= 0)
+	{
+		fprintf(stdout,"Tamanho inválido para a matriz");
+		exit(1);
+	}
+
 	fprintf(stdout,"Digite em ordem os valores de sua matriz:\n");
+	
 	for(int i = 0; i < e->linhas; i++)
 	{
 		for(int j = 0; j < e-> colunas;j++)
@@ -30,7 +39,7 @@ Lista *inicializa_matriz(Lista *l,Esparca *e)
 				l = insere_lista(l,n,j,i);
 		}
 	}
-	return l;
+	e->prim = l;
 }
 
 int coordenadas_existem(Lista *l,int i,int j)
@@ -96,4 +105,15 @@ void percentual(Esparca *e)
 	int total_matriz = e->linhas * e-> colunas;
 	float p = ((float)c/total_matriz) * 100;
 	fprintf(stdout,"O percentual de não-nulos é %.2f\n",p);
+}
+
+void deleta(Esparca *e)
+{
+	Lista *p = e->prim;
+	while(p!=NULL)
+	{
+		Lista *aux = p->prox;
+		free(p);
+		p = aux;
+	}	
 }

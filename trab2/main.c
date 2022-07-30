@@ -6,8 +6,13 @@ int acao()
 	int tmp;
 	while(1)
 	{
+		fflush(stdin);
 		fprintf(stdout,"Digite 1 para inserir, 2 para imprimir, 3 para consultar, 4 para remover elemento da fila e 5 para sair\n");
-		scanf("%d",&tmp);
+		if(!(scanf("%d",&tmp)))
+		{
+			fprintf(stdout,"Erro no input!\n");
+			exit(1);
+		}
 		if(tmp > 0 && tmp <= 5)
 			break;
 		fprintf(stdout,"Numero inválido digite novamente!\n");
@@ -21,8 +26,11 @@ void inserir(Heap* h)
 	fprintf(stdout,"Insira os valores da fila:\n");
 	for(int i = 0; i < h->tamanho; i++)
 	{
-		if(scanf("%d",&tmp) == EOF)
+		if(!scanf("%d",&tmp))
+		{
+			fprintf(stdout,"Erro ao inserer na fila! Contudo a fila continua igual antes do valor invalido\n");
 			break;
+		}
 		insere_heap(h, tmp);
 	}	
 }
@@ -41,18 +49,10 @@ void consultar(Heap* h)
 
 void remover(Heap* h)
 {
-	int tmp,pos;
-	fprintf(stdout,"Digite o numero que deseja remover:");
-	scanf("%d",&tmp);
-
-	if(consulta_heap(h,tmp,&pos))
-	{
-		fprintf(stdout,"Elemento não está na fila..\n");
-		return;
-	}
+	int tmp;
 
 	remove_heap(h,&tmp);
-	fprintf(stdout,"Elemento %d removido da posicao %d da fila\n",tmp,pos);
+	fprintf(stdout,"Elemento %d removido da fila\n",tmp);
 	imprime_heap(h);
 }
 

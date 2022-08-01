@@ -85,6 +85,8 @@ int main()
 		if(tmp == 5)
 			break;
 	}
+	
+	libera_heap(h);
 
 	return 0;
 }

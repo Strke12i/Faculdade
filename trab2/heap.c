@@ -57,6 +57,7 @@ void balanceia_insercao_heap(Heap* h)
 	}
 }
 
+
 void imprime_heap(Heap* h)
 {	
 	if( h == NULL || h->pos == 0)
@@ -64,6 +65,7 @@ void imprime_heap(Heap* h)
 		fprintf(stdout,"Não pode imprimir heap vazio\n");
 		return;
 	}
+	
 	int i = 0;
 	while(1)
 	{
@@ -78,6 +80,7 @@ void imprime_heap(Heap* h)
 			i++;
 		}else break;
 	}
+	
 	fprintf(stdout,"Fila em ordem de prioridade:");
 	for(i = 0; i < h->pos; i++)
 		fprintf(stdout,"%d ",h->fila[i]);
@@ -106,10 +109,11 @@ void remove_heap(Heap* h,int *valor)
 void balanceia_remocao_heap(Heap* h, int pos)
 {
 	int i = pos;
-	if(h->pos > pos_filho_esq(pos) && h->fila[pos_filho_esq(pos)] > h->fila[pos])
+	if((h->pos > pos_filho_esq(pos)) && (h->fila[pos_filho_esq(pos)] >= h->fila[pos]))
 		i = pos_filho_esq(pos);
-	if(h->pos > pos_filho_dir(pos) && h->fila[pos_filho_dir(pos)] > h->fila[pos])
+	if((h->pos > pos_filho_dir(pos)) && (h->fila[pos_filho_dir(pos)] >= h->fila[i]))
 		i = pos_filho_dir(pos);
+	
 	if(i != pos)
 	{
 		int tmp = h->fila[i];

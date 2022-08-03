@@ -23,9 +23,10 @@ int acao()
 void inserir(Heap* h)
 {
 	int tmp;
-	fprintf(stdout,"Insira os valores da fila:\n");
+	fprintf(stdout,"Insira os valores da fila(CTRL+D para parar de inserir):\n");
 	for(int i = 0; i < h->tamanho; i++)
 	{
+		fprintf(stdout,"valor:");
 		if(!scanf("%d",&tmp))
 		{
 			fprintf(stdout,"Erro ao inserer na fila! Contudo a fila continua igual antes do valor invalido\n");
@@ -44,7 +45,7 @@ void consultar(Heap* h)
 	if(consulta_heap(h,tmp,&pos))
 		fprintf(stdout,"O Numero %d esta na posicao %d da Fila\n",tmp,pos);
 	else
-		fprintf(stdout,"O Número %d nao esta na fila\n",tmp);
+		fprintf(stdout,"O Numero %d nao esta na fila\n",tmp);
 }
 
 void remover(Heap* h)
@@ -56,19 +57,19 @@ void remover(Heap* h)
 	imprime_heap(h);
 }
 
-void cria_nova_fila(Heap* h)
-{
-	int tmp;
-	fprintf(stdout,"Digite o tamanho da fila que deseja criar:");
-	scanf("%d",&tmp);
-	h = cria_heap(tmp);
-}
 
 int main()
 {
 	int tmp;
-	fprintf(stdout,"Digite o tamanho da fila que deseja criar:");
-	scanf("%d",&tmp);
+	while(1)
+	{
+		fprintf(stdout,"Digite o tamanho da fila que deseja criar:");
+		scanf("%d",&tmp);
+		if(tmp >= 0)
+			break;
+		fprintf(stdout,"Numero invalido!\n:");
+	}
+	
 	Heap* h = cria_heap(tmp);
 
 	while(1)

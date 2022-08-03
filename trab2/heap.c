@@ -46,9 +46,13 @@ void insere_heap(Heap* h, int n)
 
 void balanceia_insercao_heap(Heap* h)
 {
+	//Pega o valor ultima posição a ser inserida no array
 	int i = h->pos - 1;
-	while( i != 0 && h->fila[pos_pai(i)] < h->fila[i])
+	
+	// Vai comparar o valor de i com o valor de seu pai, caso tenha pai
+	while( i != 0 && (h->fila[pos_pai(i)] < h->fila[i]))
 	{
+		// Faz a troca dos valores
 		int tmp = h->fila[pos_pai(i)];
 		h->fila[pos_pai(i)] = h->fila[i];
 		h->fila[i] = tmp;
@@ -67,20 +71,25 @@ void imprime_heap(Heap* h)
 	}
 	
 	int i = 0;
+	// Enquanto i for diferente do valor do ultimo inserido
 	while(1)
 	{
 		if( i != h->pos)
 		{
+			// Printa o valor i na fila
 			fprintf(stdout,"Pai %d ..",h->fila[i]);
+			// Vai verificar se o valor de i possui filhos
 			if(pos_filho_esq(i) < h->pos)
 				fprintf(stdout,"Esq %d ..",h->fila[pos_filho_esq(i)]);	
 			if(pos_filho_dir(i) < h->pos)
 				fprintf(stdout,"Dir %d ..",h->fila[pos_filho_dir(i)]);
+				
 			fprintf(stdout,"\n");
 			i++;
 		}else break;
 	}
 	
+	//Printa a fila em ordem
 	fprintf(stdout,"Fila em ordem de prioridade:");
 	for(i = 0; i < h->pos; i++)
 		fprintf(stdout,"%d ",h->fila[i]);
@@ -95,11 +104,13 @@ void remove_heap(Heap* h,int *valor)
 		return;
 	}
 	
+	// Vai passar para o pointer o valor da posição max
 	*valor = h->fila[0];
 	h->pos--;
 
 	if( h->pos == 0) return;
 
+	// Faz a troca do primeiro pelo ultimo elemento
 	h->fila[0] = h->fila[h->pos];
 	
 	balanceia_remocao_heap(h, 0);
@@ -108,12 +119,16 @@ void remove_heap(Heap* h,int *valor)
 
 void balanceia_remocao_heap(Heap* h, int pos)
 {
+	// Recebe a posição de recursão
 	int i = pos;
-	if((h->pos > pos_filho_esq(pos)) && (h->fila[pos_filho_esq(pos)] >= h->fila[pos]))
+	
+	// Compara se a posição do filho existe e se o valor do filho é maior que a do pai
+	if((h->pos > pos_filho_esq(pos)) && (h->fila[pos_filho_esq(pos)] > h->fila[pos]))
 		i = pos_filho_esq(pos);
-	if((h->pos > pos_filho_dir(pos)) && (h->fila[pos_filho_dir(pos)] >= h->fila[i]))
+	if((h->pos > pos_filho_dir(pos)) && (h->fila[pos_filho_dir(pos)] > h->fila[i]))
 		i = pos_filho_dir(pos);
 	
+	//Faz a troca dos valores
 	if(i != pos)
 	{
 		int tmp = h->fila[i];
